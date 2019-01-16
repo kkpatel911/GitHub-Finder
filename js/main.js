@@ -25,8 +25,6 @@ $(document).ready(function () {
               <li class="list-group-item">Email: ${data.email}</li>
               <li class="list-group-item">Member Since: ${data.created_at}</li>
             </ul>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
 
@@ -44,15 +42,21 @@ $(document).ready(function () {
   $('#searchUser').on('keyup', function (e) {
     var username = e.target.value;
 
-    fetch("https://api.github.com/users/" + username + "/repos?client_id=98501be021148392de94&client_secret=d5b8ca269c822c3d6908f610aa024214aa1fc452")
+    fetch("https://api.github.com/users/" + username + "/repos?per_page=5")
       .then(function (infojson) {
         return infojson.json();
       })
       .then(function (repos) {
         repos.forEach(function (element) {
-          console.log(element.name);
           $('#hell').append(`
-            <div>${element.name}</div>
+            <div class="well">
+              <div class="row">
+                <div class="col-md-12">
+                <strong>${element.name}</strong>  : ${element.description}
+                </div>
+              </div>
+            </div>
+
 
           `)
 
